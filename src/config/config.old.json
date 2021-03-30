@@ -1,0 +1,39 @@
+{
+
+  "development": {
+    "configId": "development",
+    "urlPrefix": "https://gvdldev.ixstack.net/",
+    "region": "us-east-2",
+    "awsAccountId": "437640264121",
+    "username": "edge.team@intel.com",
+    "password": "Passw0rd!",
+    "accountName": "jeremy",
+    "bucketName": "intelinsight-test-jeremy-datalake",
+    "elasticsearchUrl": "https://search-my-first-cluster-34xey2vduvfmz6h3assm4gfkda.eu-central-1.es.amazonaws.com/",
+    "testsData": [{
+      "testName": "LASer",
+      "assetId": "7vapr427fe9y29f6vz85p0txzp.ast",
+      "pathToAsset": "20/10/01/7",
+      "fileName": "ohio_merged_lidar.las",
+      "artifact": "mergeDataTile"
+    }]
+  },
+  "testing": {
+    "configId": "testing",
+    "urlPrefix": "",
+    "elasticsearchUrl": "",
+    "testsData": []
+  },
+  "staging": {
+    "configId": "staging",
+    "urlPrefix": "https://gvdlstaging.ixstack.net/",
+    "elasticsearchUrl":"https://search-test-staging-es-vkhujfib64q3uset4mdxrno264.us-east-1.es.amazonaws.com/",
+    "testsData": []
+  },
+  "production": {
+    "configId": "production",
+    "urlPrefix": "",
+    "elasticsearchUrl":"",
+    "testsData": []
+  }
+}

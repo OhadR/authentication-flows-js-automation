@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es2015",
+        "outDir": "dist",
+        "types": ["node"],
+        "module": "commonjs",
+        //let debugger stop in TS files:
+        "sourceMap": true,
+        "allowJs": true,
+        "experimentalDecorators": true
+    }
+}
