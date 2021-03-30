@@ -8,12 +8,17 @@ export class FlowsApi {
     private static SERVICE_NAME = 'datalake';
     constructor() {}
 
-    public static async createAccount() {
+    public static async createAccount(
+        email: string,
+        password: string,
+        retypedPassword: string) {
         try {
             const response = await axios.post(
                 'http://localhost:3000/createAccount',
                 {
-                    name: "automation-workspace",
+                    email,
+                    password,
+                    retypedPassword
                 });
             debug('createAccount() response.status: ' + response.status);
             return (response.status == 200)

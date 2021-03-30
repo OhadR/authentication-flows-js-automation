@@ -8,7 +8,7 @@ let common = [
     '--format progress-bar', // Load custom formatter
     '--publish', // publish report
     //'--world-parameters {"env":"not-needed"}',
-    '--tags @ohads',
+    '--tags @api',
 ].join(' ');
 
 module.exports = {
