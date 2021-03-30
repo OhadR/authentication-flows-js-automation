@@ -1,5 +1,5 @@
 import { binding, given, then, when, after} from 'cucumber-tsflow';
-import { DatalakeApi } from '../api_objects/datalake_api';
+import { FlowsApi } from '../api_objects/flows_api';
 import { EnvironmentTestData, getTestDataByTestName, Globals } from "../config/global";
 var debug = require('debug')('datalake-steps');
 const expect = require('chai').expect;
@@ -19,21 +19,21 @@ export class DatalakeSteps {
         public async afterScenario() {
                 debug('afterScenario()', this.workspaceId);
                 //delete the workspace:
-                await DatalakeApi.deleteWorkspace(this.workspaceId);
+                await FlowsApi.deleteWorkspace(this.workspaceId);
         }
 
 
         @given(/create account is called/)
         public async createAccountIsCalled() {
                 debug('createAccountIsCalled()');
-                this.layers = await DatalakeApi.createAccount();
+                this.layers = await FlowsApi.createAccount();
                 // debug('getLayers response: ', this.layers);
                 expect(this.layers).not.to.be.undefined;
         }
         @given(/get layers is called/)
         public async getLayersIsCalled() {
                 debug('getLayersIsCalled()');
-                this.layers = await DatalakeApi.getLayers();
+                this.layers = await FlowsApi.getLayers();
                // debug('getLayers response: ', this.layers);
                 expect(this.layers).not.to.be.undefined;
         }
@@ -125,7 +125,7 @@ export class DatalakeSteps {
 
                 const layerId = testData.assetId + '-' + dataType;
 
-                const retVal = await DatalakeApi.updateLayer(layerId, key, newValue);
+                const retVal = await FlowsApi.updateLayer(layerId, key, newValue);
                 expect(retVal).not.to.be.undefined;
                 debug(retVal);
                 // debug('retVal.status', retVal.status, typeof retVal.status);
@@ -153,7 +153,7 @@ export class DatalakeSteps {
         public async deleteLayerByLayerId(layerId: string) {
                 debug('deleteLayerByLayerId() ', layerId);
 
-                const retVal = await DatalakeApi.deleteLayer(layerId);
+                const retVal = await FlowsApi.deleteLayer(layerId);
                 expect(retVal).not.to.be.undefined;
                 this.retVal = retVal;
 
@@ -169,7 +169,7 @@ export class DatalakeSteps {
         @when(/create workspace is called/)
         public async createWorkspaceIsCalled() {
                 debug('createWorkspaceIsCalled()');
-                const retVal: Workspace = await DatalakeApi.createWorkspace();
+                const retVal: Workspace = await FlowsApi.createWorkspace();
                 expect(retVal).not.to.be.undefined;
                 debug(retVal);
                 this.workspaceId = retVal.workspaceId;
@@ -178,14 +178,14 @@ export class DatalakeSteps {
         @when(/delete workspace is called/)
         public async deleteWorkspaceIsCalled() {
                 debug('deleteWorkspaceIsCalled()');
-                await DatalakeApi.deleteWorkspace(this.workspaceId);
+                await FlowsApi.deleteWorkspace(this.workspaceId);
         }
 
 
         @then(/workspace exists/)
         public async workspaceExists() {
                 debug('workspaceExists()');
-                const retVal : Workspace[] = await DatalakeApi.getWorkspaces();
+                const retVal : Workspace[] = await FlowsApi.getWorkspaces();
                 expect(retVal).not.to.be.undefined;
                 debug(retVal);
                 //search among all worksapces for `this.workspaceId`:
@@ -200,7 +200,7 @@ export class DatalakeSteps {
         @then(/workspace does not exist/)
         public async workspaceNotExist() {
                 debug('workspaceNotExist()');
-                const retVal : Workspace[] = await DatalakeApi.getWorkspaces();
+                const retVal : Workspace[] = await FlowsApi.getWorkspaces();
                 expect(retVal).not.to.be.undefined;
                 debug(retVal);
                 //search among all worksapces for `this.workspaceId`:
@@ -214,7 +214,7 @@ export class DatalakeSteps {
         public async addLayersToWorkspaceIsCalled(layerId: string) {
                 debug('addLayersToWorkspaceIsCalled()');
                 debug('layerId= ' + layerId);
-                const retVal = await DatalakeApi.addLayersToWorkspace(this.workspaceId, layerId);
+                const retVal = await FlowsApi.addLayersToWorkspace(this.workspaceId, layerId);
 
                 debug(retVal);
                 expect(retVal).not.to.be.undefined;
@@ -224,7 +224,7 @@ export class DatalakeSteps {
         @given(/add layer with same id (.*) to workspace/)
         public async addSameLayerToWorkspaceIsCalled(layerId: string) {
                 debug('addSameLayerToWorkspaceIsCalled()');
-                const retVal = await DatalakeApi.addLayersToWorkspace(this.workspaceId, layerId);
+                const retVal = await FlowsApi.addLayersToWorkspace(this.workspaceId, layerId);
 
                 debug(retVal);
                 expect(retVal).not.to.be.undefined;
@@ -235,7 +235,7 @@ export class DatalakeSteps {
         public async addLayersToNonExistingWorkspaceIsCalled() {
                 debug('addLayersToNonExistingWorkspaceIsCalled()');
                 const generatedLayerId = uuidv4();
-                const retVal = await DatalakeApi.addLayersToWorkspace(this.workspaceId + 'X', generatedLayerId);
+                const retVal = await FlowsApi.addLayersToWorkspace(this.workspaceId + 'X', generatedLayerId);
 
                 debug(retVal);
                 expect(retVal).to.include('Error: no workspace found with id =');
@@ -244,7 +244,7 @@ export class DatalakeSteps {
         @given('add layer to workspace with empty body')
         public async addLayersToWorkspaceWithEmptyBodyIsCalled() {
                 debug('addLayersToWorkspaceWithEmptyBodyIsCalled()');
-                const retVal = await DatalakeApi.addLayersToWorkspaceEmptyBody(this.workspaceId);
+                const retVal = await FlowsApi.addLayersToWorkspaceEmptyBody(this.workspaceId);
 
                 debug(retVal);
                 expect(retVal).to.equal('invalid path parameters: event.body.layers');
@@ -253,7 +253,7 @@ export class DatalakeSteps {
         @given('add layer without layerId to workspace')
         public async addLayerWithoutIdToWorkspaceIsCalled() {
                 debug('addLayerWithoutIdToWorkspaceIsCalled()');
-                const retVal = await DatalakeApi.addLayersToWorkspace(this.workspaceId, null);
+                const retVal = await FlowsApi.addLayersToWorkspace(this.workspaceId, null);
 
                 debug(retVal);
                 expect(retVal).not.to.be.undefined;
@@ -263,7 +263,7 @@ export class DatalakeSteps {
         @given(/layer with id (.*) is added to workspace/)
         public async workspaceContainLayer(layerId: string) {
                 debug('workspaceContainLayer()');
-                const retVal = await DatalakeApi.getWorkspaces();
+                const retVal = await FlowsApi.getWorkspaces();
                 debug(retVal);
                 expect(retVal).not.to.be.undefined;
 
@@ -290,7 +290,7 @@ export class DatalakeSteps {
         @given(/delete layer with id (.*) from workspace/)
         public async deleteLayerFromWorkspace(layerId: string) {
                 debug('deleteLayerFromWorkspace()');
-                const retVal = await DatalakeApi.deleteLayersFromWorkspace(this.workspaceId, layerId);
+                const retVal = await FlowsApi.deleteLayersFromWorkspace(this.workspaceId, layerId);
 
                 debug(retVal);
                 expect(retVal).not.to.be.undefined;
@@ -300,7 +300,7 @@ export class DatalakeSteps {
         @given('delete layer from workspace without layers in request')
         public async deleteLayerFromWorkspaceWithoutLayers() {
                 debug('deleteLayerFromWorkspaceWithoutLayers()');
-                const retVal = await DatalakeApi.deleteLayersFromWorkspace(this.workspaceId, null);
+                const retVal = await FlowsApi.deleteLayersFromWorkspace(this.workspaceId, null);
 
                 debug(retVal);
                 expect(retVal).not.to.be.undefined;
@@ -310,7 +310,7 @@ export class DatalakeSteps {
         @given(/layer with id (.*) not exist in workspace/)
         public async workspaceNotContainLayer(layerId: string) {
                 debug('workspaceNotContainLayer()');
-                const retVal = await DatalakeApi.getWorkspaces();
+                const retVal = await FlowsApi.getWorkspaces();
                 debug(retVal);
                 expect(retVal).not.to.be.undefined;
 
