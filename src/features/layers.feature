@@ -11,4 +11,5 @@ Feature: Authentication Flows API
             | username | password    | repassword   | status | returnMessage    |
             | not_mail | pass        | pass         | 500    | null             |
             | a@b.com  | pass        | other_pass   | 500    | null             |
+            | a@b.com  | pass        | pass         | 200    | null             |
 
