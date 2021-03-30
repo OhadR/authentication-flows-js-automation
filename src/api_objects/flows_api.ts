@@ -1,7 +1,7 @@
 import { Globals } from "../config/global";
 
 const axios = require('axios');
-var debug = require('debug')('datalake-api:' + process.env.CUCUMBER_WORKER_ID);
+var debug = require('debug')('flows-api');
 
 export class FlowsApi {
 
@@ -21,12 +21,16 @@ export class FlowsApi {
                     retypedPassword
                 });
             debug('createAccount() response.status: ' + response.status);
-            return (response.status == 200)
-                ? response.data
-                : undefined;
-
+            return {
+                status: response.status,
+                data: response.data,
+            };
         } catch (error) {
-            console.error(error);
+            //debug('error.response', error.response);
+            return {
+                status: error.response.status,
+                data: error.response.data.error,
+            }
         }
     }
 

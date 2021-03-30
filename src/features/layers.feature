@@ -6,9 +6,9 @@ Feature: Authentication Flows API
 
     Scenario Outline: Create Account
         When create account with username <username> password <password> retyped password <repassword> is called
-        Then layers exist for test <testName> and dataTypes <dataTypes>
+        Then return status <status> and return message <returnMessage>
         Examples:
-            | testName | dataType    | key          | newValue        | updateStatus | returnMessage |
-            | LASer    | POINT_CLOUD | datasetName  | automationLayer | 200          | updated       |
-            | LASer    | POINT_CLOUD | supplierName | newSupplierName | 200          | updated       |
+            | username | password    | repassword   | status | returnMessage    |
+            | not_mail | pass        | pass         | 500    | null             |
+            | a@b.com  | pass        | other_pass   | 500    | null             |
 
