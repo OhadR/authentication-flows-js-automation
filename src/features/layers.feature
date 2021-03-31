@@ -8,8 +8,15 @@ Feature: Authentication Flows API
         When create account with username <username> password <password> retyped password <repassword> is called
         Then return status <status> and return message <returnMessage>
         Examples:
-            | username | password    | repassword   | status | returnMessage    |
-            | not_mail | pass        | pass         | 500    | null             |
-            | a@b.com  | pass        | other_pass   | 500    | null             |
-            | a@b.com  | pass        | pass         | 200    | null             |
+            | username | password    | repassword   | status | returnMessage                              |
+            | not_mail | pass        | pass         | 500    | The e-mail you have entered is not valid   |
+            | a@b.com  | pass        | other_pass   | 500    | These passwords don't match                |
+            | a@b.com  | pass        | pass         | 200    | null                                       |
 
+    Scenario Outline: Activate Account
+        When create account with username <username> password <password> retyped password <repassword> is called
+        Then return status <status> and return message <returnMessage>
+        When activate account for username <username> is called
+        Examples:
+            | username | password    | repassword   | status | returnMessage    |
+            | a@b.com  | pass        | pass         | 200    | null             |

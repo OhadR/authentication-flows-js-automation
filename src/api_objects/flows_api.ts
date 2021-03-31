@@ -13,8 +13,9 @@ export class FlowsApi {
         password: string,
         retypedPassword: string) {
         try {
+            debug(Globals.g_envConfig.urlPrefix + 'createAccount');
             const response = await axios.post(
-                'http://localhost:3000/createAccount',
+                Globals.g_envConfig.urlPrefix + 'createAccount',
                 {
                     email,
                     password,
@@ -34,16 +35,11 @@ export class FlowsApi {
         }
     }
 
-    public static async getLayers() {
+    public static async getActivationLinkForUser(username: string) {
 
         try {
             const response = await axios.get(
-                Globals.g_envConfig.urlPrefix + this.SERVICE_NAME + '/v1/getLayers',
-                {
-                    headers: {
-                        idToken: Globals.g_idToken
-                    },
-                });
+                Globals.g_envConfig.urlPrefix + 'link/' + username);
             debug('getLayers() response.status: ' + response.status);
             return (response.status == 200)
                 ? response.data
@@ -54,19 +50,11 @@ export class FlowsApi {
         }
     }
 
-    public static async updateLayer(layerId: string, key: string, newValue: string) {
+    public static async activateAccount(url: string) {
         try {
-            const response = await axios.put(
-                Globals.g_envConfig.urlPrefix + this.SERVICE_NAME + '/v1/dataLayer/' + layerId,
-                {
-                    [key]: newValue,
-                },
-                {
-                    headers: {
-                        idToken: Globals.g_idToken
-                    },
-                });
-            debug('updateLayer() response.data:', response.data);
+            const response = await axios.get(
+                Globals.g_envConfig.urlPrefix + 'aa?uts=' + url);
+            debug('activateAccount() response.data:', response.data);
             return {
                 status: response.status,
                 data: response.data,
