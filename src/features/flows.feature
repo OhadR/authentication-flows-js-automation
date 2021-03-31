@@ -13,6 +13,7 @@ Feature: Authentication Flows API
             | a@b.com  | pass        | other_pass   | 500    | These passwords don't match                |
             | a@b.com  | pass        | pass         | 200    | null                                       |
 
+    @ohads
     Scenario Outline: Activate Account
         When create account with username <username> password <password> retyped password <repassword> is called
         Then return status 200 and return message OK
