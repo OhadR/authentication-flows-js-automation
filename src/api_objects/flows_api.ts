@@ -68,22 +68,22 @@ export class FlowsApi {
             debug('error.response', error.response);
             return {
                 status: error.response.status,
-                data: error.response.data.error,
+                data: error.response.headers.err_msg,
             }
         }
     }
 
-    public static async deleteLayer(layerId: string) {
-        debug('deleteLayer(), layerId: ', layerId)
+    public static async deleteAccount(username: string, password: string) {
+        debug(`deleteAccount(), username: ${username}, password: ${password}`)
         try {
-            const response = await axios.delete(
-                Globals.g_envConfig.urlPrefix + this.SERVICE_NAME + '/v1/dataLayer/' + layerId,
+            const response = await axios.post(
+                Globals.g_envConfig.urlPrefix + 'deleteAccount',
                 {
-                    headers: {
-                        idToken: Globals.g_idToken
-                    },
+                    email: username,
+                    password,
                 });
-            debug('deleteLayer() response.data:', response.data);
+
+            debug('deleteAccount() response.data:', response.data);
             return (response.status == 200)
                 ? response.data
                 : undefined;
