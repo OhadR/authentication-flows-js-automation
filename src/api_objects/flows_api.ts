@@ -1,11 +1,10 @@
-import { Globals } from "../config/global";
-
 const axios = require('axios');
-var debug = require('debug')('flows-api');
+const debug = require('debug')('flows-api');
+
+const urlPrefix = "http://localhost:3000/";
 
 export class FlowsApi {
 
-    private static SERVICE_NAME = 'datalake';
     constructor() {}
 
     public static async createAccount(
@@ -13,9 +12,9 @@ export class FlowsApi {
         password: string,
         retypedPassword: string) {
         try {
-            debug(Globals.g_envConfig.urlPrefix + 'createAccount');
+            debug(urlPrefix + 'createAccount');
             const response = await axios.post(
-                Globals.g_envConfig.urlPrefix + 'createAccount',
+                urlPrefix + 'createAccount',
                 {
                     email,
                     password,
@@ -39,7 +38,7 @@ export class FlowsApi {
 
         try {
             const response = await axios.get(
-                Globals.g_envConfig.urlPrefix + 'link/' + username);
+                urlPrefix + 'link/' + username);
             //debug('getActivationLinkForUser() response.status: ' + response.status);
             return (response.status == 200)
                 ? response.data.link
@@ -53,7 +52,7 @@ export class FlowsApi {
     public static async activateAccount(url: string) {
         try {
             const response = await axios.get(
-                Globals.g_envConfig.urlPrefix + 'aa?uts=' + url);
+                urlPrefix + 'aa?uts=' + url);
             debug('activateAccount() response.data:', response.data);
             return {
                 status: response.status,
@@ -77,7 +76,7 @@ export class FlowsApi {
         debug(`deleteAccount(), username: ${username}, password: ${password}`)
         try {
             const response = await axios.post(
-                Globals.g_envConfig.urlPrefix + 'deleteAccount',
+                urlPrefix + 'deleteAccount',
                 {
                     email: username,
                     password,

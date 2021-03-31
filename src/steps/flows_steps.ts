@@ -1,14 +1,12 @@
 import { binding, given, then, when, after} from 'cucumber-tsflow';
 import { FlowsApi } from '../api_objects/flows_api';
-import { Globals } from "../config/global";
 var debug = require('debug')('flows-steps');
 const expect = require('chai').expect;
-import { v4 as uuidv4 } from 'uuid';
 import { ReturnStatus } from "../types/asset.type";
 
-@binding([Globals])
+@binding()
 export class DatalakeSteps {
-        constructor(protected globals: Globals) {}
+        constructor() {}
 
         private retVal: ReturnStatus;
         private activationUrl: string;
