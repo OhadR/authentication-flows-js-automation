@@ -1,6 +1,6 @@
 import { binding, given, then, when, after} from 'cucumber-tsflow';
 import { FlowsApi } from '../api_objects/flows_api';
-import { EnvironmentTestData, getTestDataByTestName, Globals } from "../config/global";
+import { Globals } from "../config/global";
 var debug = require('debug')('flows-steps');
 const expect = require('chai').expect;
 import { v4 as uuidv4 } from 'uuid';
@@ -12,12 +12,14 @@ export class DatalakeSteps {
 
         private retVal: ReturnStatus;
         private activationUrl: string;
+        private username: string;
+        private password: string;
 
         @after()
         public async afterScenario() {
                 debug('afterScenario()');
-                //delete the workspace:
-//                await FlowsApi.deleteWorkspace(this.workspaceId);
+                //delete the account:
+                await FlowsApi.deleteAccount(this.username, this.password);
         }
 
 
@@ -29,6 +31,8 @@ export class DatalakeSteps {
                 this.retVal = await FlowsApi.createAccount(username, password, repassword);
                 expect(this.retVal).not.to.be.undefined;
                 debug(this.retVal);
+                this.username = username;
+                this.password = password;
         }
 
 
@@ -39,7 +43,7 @@ export class DatalakeSteps {
         }
 
 
-        @when(/get activation link for username <username> is called/)
+        @when(/get activation link for username (.*) is called/)
         public async getActivationUrlForUsername(username: string) {
                 debug('getActivationUrlForUsername()');
                 this.activationUrl = await FlowsApi.getActivationLinkForUser(username);
@@ -49,7 +53,8 @@ export class DatalakeSteps {
         @when(/activate account for username (.*) is called/)
         public async activateAccountForUsername(username: string) {
                 debug('activateAccountForUsername()');
-                await FlowsApi.activateAccount(this.activationUrl);
-
+                this.retVal = await FlowsApi.activateAccount(this.activationUrl);
+                expect(this.retVal).not.to.be.undefined;
+                debug(this.retVal);
         }
 }
