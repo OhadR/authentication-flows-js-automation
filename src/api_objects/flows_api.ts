@@ -40,9 +40,9 @@ export class FlowsApi {
         try {
             const response = await axios.get(
                 Globals.g_envConfig.urlPrefix + 'link/' + username);
-            debug('getLayers() response.status: ' + response.status);
+            //debug('getActivationLinkForUser() response.status: ' + response.status);
             return (response.status == 200)
-                ? response.data
+                ? response.data.link
                 : undefined;
 
         } catch (error) {
