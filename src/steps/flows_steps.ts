@@ -11,6 +11,7 @@ export class DatalakeSteps {
         constructor(protected globals: Globals) {}
 
         private retVal: ReturnStatus;
+        private activationUrl: string;
 
         @after()
         public async afterScenario() {
@@ -38,12 +39,17 @@ export class DatalakeSteps {
         }
 
 
+        @when(/get activation link for username <username> is called/)
+        public async getActivationUrlForUsername(username: string) {
+                debug('getActivationUrlForUsername()');
+                this.activationUrl = await FlowsApi.getActivationLinkForUser(username);
+                debug(this.activationUrl);
+        }
+
         @when(/activate account for username (.*) is called/)
         public async activateAccountForUsername(username: string) {
                 debug('activateAccountForUsername()');
-                const activationUrl = await FlowsApi.getActivationLinkForUser(username);
-                debug(activationUrl);
-                await FlowsApi.activateAccount(activationUrl);
+                await FlowsApi.activateAccount(this.activationUrl);
 
         }
 }
