@@ -8,10 +8,10 @@ Feature: Authentication Flows API
         When create account with username <username> password <password> retyped password <repassword> is called
         Then return status <status> and return message <returnMessage>
         Examples:
-            | username | password    | repassword   | status | returnMessage                              |
-            | not_mail | pass        | pass         | 500    | The e-mail you have entered is not valid   |
-            | a@b.com  | pass        | other_pass   | 500    | These passwords don't match                |
-            | a@b.com  | pass        | pass         | 200    | null                                       |
+            | username                | password    | repassword   | status | returnMessage                              |
+            | not_mail                | pass        | pass         | 500    | The e-mail you have entered is not valid   |
+            | bmc.incubator@gmail.com | pass        | other_pass   | 500    | These passwords don't match                |
+            | bmc.incubator@gmail.com | pass        | pass         | 200    | null                                       |
 
     @ohads
     Scenario Outline: Activate Account
@@ -25,5 +25,5 @@ Feature: Authentication Flows API
         When activate account for username <username> is called
         Then return status 500 and return message link does not exist in DB
         Examples:
-            | username | password    | repassword   |
-            | a@b.com  | pass        | pass         |
+            | username                 | password    | repassword   |
+            | bmc.incubator@gmail.com  | pass        | pass         |
