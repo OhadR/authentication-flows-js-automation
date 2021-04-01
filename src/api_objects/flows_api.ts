@@ -92,4 +92,27 @@ export class FlowsApi {
             return undefined;
         }
     }
+
+    public static async login(username: string, password: string) {
+        try {
+            const response = await axios.post(
+                urlPrefix + 'login',
+                {
+                    username,
+                    password,
+                });
+
+            debug('login() response.data:', response.data);
+            return {
+                status: response.status,
+                data: response.data,
+            };
+        } catch (error) {
+            //debug('error.response', error.response);
+            return {
+                status: error.response.status,
+                data: error.response.data.error,
+            }
+        }
+    }
 }

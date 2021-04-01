@@ -55,4 +55,15 @@ export class DatalakeSteps {
                 expect(this.retVal).not.to.be.undefined;
                 debug(this.retVal);
         }
+
+        @when(/login with username (.*) password (.*) is called/)
+        public async loginStep(
+            username: string,
+            password: string) {
+                debug('loginStep()');
+                //delete the account:
+                this.retVal = await FlowsApi.login(username, password);
+                expect(this.retVal).not.to.be.undefined;
+                debug(this.retVal);
+        }
 }
