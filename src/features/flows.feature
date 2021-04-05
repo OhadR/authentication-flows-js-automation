@@ -70,3 +70,20 @@ Feature: Authentication Flows API
             | bmc.incubator@gmail.com  | pass        |
 
 
+# test few login failured, then success, and make sure counter of attempts resets.
+# test forgot password for account that has not been activated.
+
+
+    Scenario Outline: Forgot Password
+        When create account with username <username> password <password> retyped password <password> is called
+        Then return status 200 and return message OK
+        When get link for username <username> is called
+        When activate account with link is called
+        Then return status 200 and return message OK
+#        forgot-password:
+        When forgot password for username <username> is called
+        When get link for username <username> is called
+        When reset password with link is called
+        Examples:
+            | username                 | password    |
+            | bmc.incubator@gmail.com  | pass        |
