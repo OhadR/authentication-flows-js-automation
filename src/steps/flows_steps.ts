@@ -49,7 +49,7 @@ export class DatalakeSteps {
         }
 
         @when(/activate account with link is called/)
-        public async activateAccountForUsername(username: string) {
+        public async activateAccountForUsername() {
                 debug('activateAccountForUsername()');
                 this.retVal = await FlowsApi.activateAccount(this.activationUrl);
                 expect(this.retVal).not.to.be.undefined;
