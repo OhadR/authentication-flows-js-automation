@@ -41,14 +41,14 @@ export class DatalakeSteps {
         }
 
 
-        @when(/get activation link for username (.*) is called/)
-        public async getActivationUrlForUsername(username: string) {
-                debug('getActivationUrlForUsername()');
-                this.activationUrl = await FlowsApi.getActivationLinkForUser(username);
+        @when(/get link for username (.*) is called/)
+        public async getLinkForUsername(username: string) {
+                debug('getLinkForUsername()');
+                this.activationUrl = await FlowsApi.getLinkForUser(username);
                 debug(this.activationUrl);
         }
 
-        @when(/activate account for username (.*) is called/)
+        @when(/activate account with link is called/)
         public async activateAccountForUsername(username: string) {
                 debug('activateAccountForUsername()');
                 this.retVal = await FlowsApi.activateAccount(this.activationUrl);

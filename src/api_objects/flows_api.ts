@@ -34,7 +34,7 @@ export class FlowsApi {
         }
     }
 
-    public static async getActivationLinkForUser(username: string) {
+    public static async getLinkForUser(username: string) {
 
         try {
             const response = await axios.get(
