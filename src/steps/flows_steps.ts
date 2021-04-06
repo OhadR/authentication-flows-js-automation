@@ -44,7 +44,8 @@ export class DatalakeSteps {
         @when(/get link for username (.*) is called/)
         public async getLinkForUsername(username: string) {
                 debug('getLinkForUsername()');
-                this.activationUrl = await FlowsApi.getLinkForUser(username);
+                const linkData: { link: string; date: Date } = await FlowsApi.getLinkForUser(username);
+                this.activationUrl = linkData.link;
                 debug(this.activationUrl);
         }
 
