@@ -82,6 +82,7 @@ Feature: Authentication Flows API
         Then return status 200 and return message OK
 #        forgot-password:
         When forgot password for username <username> is called
+        Then return status 200 and return message OK
         When get link for username <username> is called
         When reset password with link is called
         Examples:

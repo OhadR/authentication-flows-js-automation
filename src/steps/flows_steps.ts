@@ -66,4 +66,13 @@ export class DatalakeSteps {
                 expect(this.retVal).not.to.be.undefined;
                 debug(this.retVal);
         }
+
+
+        @when(/forgot password for username (.*) is called/)
+        public async forgotPasswordIsCalled(username: string) {
+                debug('forgotPasswordIsCalled()');
+                this.retVal = await FlowsApi.forgotPassword(username);
+                expect(this.retVal).not.to.be.undefined;
+                debug(this.retVal);
+        }
 }

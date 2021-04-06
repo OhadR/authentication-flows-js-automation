@@ -115,4 +115,24 @@ export class FlowsApi {
             }
         }
     }
+
+    static async forgotPassword(email: string) {
+        try {
+            const response = await axios.post(
+                urlPrefix + 'forgotPassword',
+                {
+                    email
+                });
+            debug('forgotPassword() response.status: ' + response.status);
+            return {
+                status: response.status,
+                data: response.data,
+            };
+        } catch (error) {
+            return {
+                status: error.response.status,
+                data: error.response.data.error,
+            }
+        }
+    }
 }

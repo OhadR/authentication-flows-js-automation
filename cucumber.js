@@ -6,7 +6,7 @@ let common = [
     '--require src/steps/**/*.ts', // Load step definitions
     '--format progress-bar', // Load custom formatter
     '--publish', // publish report
-    '--tags @ohads',
+    '--tags @api',
 ].join(' ');
 
 module.exports = {
