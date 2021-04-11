@@ -37,7 +37,6 @@ Feature: Authentication Flows API
 
 
 
-@ohads
     Scenario Outline: Account Lock (due to login-failure)
         When create account with username <username> password <password> retyped password <password> is called
         Then return status 200 and return message OK
@@ -80,11 +79,34 @@ Feature: Authentication Flows API
         When get link for username <username> is called
         When activate account with link is called
         Then return status 200 and return message OK
-#        forgot-password:
+        #        forgot-password:
         When forgot password for username <username> is called
         Then return status 200 and return message OK
         When get link for username <username> is called
         When reset password with link is called
+        Then return status 200 and return message OK
+        # user is directed to set new password page, enters his new password and now we test the server
+        When set new password with password <newPassword> retyped password <newPassword> is called
+        Then return status 200 and return message OK
+        # validate link is valid only once:
+        When reset password with link is called
+        Then return status 500 and return message link does not exist in DB
+
+        #       make sure login ok after change password:
+        When login with username <username> password <newPassword> is called
+        Then return status 200 and return message OK
+        Examples:
+            | username                 | password    | newPassword |
+            | bmc.incubator@gmail.com  | pass        | newpass     |
+
+
+
+    Scenario Outline: Forgot Password to non-activated account
+        When create account with username <username> password <password> retyped password <password> is called
+        Then return status 200 and return message OK
+        #        forgot-password:
+        When forgot password for username <username> is called
+        Then return status 500 and return message Account is locked or does not exist
         Examples:
             | username                 | password    |
             | bmc.incubator@gmail.com  | pass        |

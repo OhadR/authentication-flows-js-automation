@@ -17,6 +17,9 @@ export class DatalakeSteps {
         public async afterScenario() {
                 debug('afterScenario()');
                 //delete the account:
+                if(!this.username || !this.password)
+                        return;
+
                 await FlowsApi.deleteAccount(this.username, this.password);
         }
 
@@ -57,6 +60,15 @@ export class DatalakeSteps {
                 debug(this.retVal);
         }
 
+
+        @when(/reset password with link is called/)
+        public async resetPasswordLinkClicked() {
+                debug('resetPasswordLinkClicked()');
+                this.retVal = await FlowsApi.restorePassword(this.activationUrl);
+                expect(this.retVal).not.to.be.undefined;
+                debug(this.retVal);
+        }
+
         @when(/login with username (.*) password (.*) is called/)
         public async loginStep(
             username: string,
@@ -76,4 +88,16 @@ export class DatalakeSteps {
                 expect(this.retVal).not.to.be.undefined;
                 debug(this.retVal);
         }
+
+        @given(/set new password with password (.*) retyped password (.*) is called/)
+        public async setNewPasswordIsCalled(password: string,
+                                           repassword: string) {
+                debug('setNewPasswordIsCalled()');
+                this.retVal = await FlowsApi.setNewPassword(this.activationUrl, password, repassword);
+                expect(this.retVal).not.to.be.undefined;
+                debug(this.retVal);
+                if(this.retVal.status == 200)
+                    this.password = password;
+        }
+
 }

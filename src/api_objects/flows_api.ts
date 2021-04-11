@@ -72,6 +72,29 @@ export class FlowsApi {
         }
     }
 
+    public static async restorePassword(url: string) {
+        try {
+            const response = await axios.get(
+                urlPrefix + 'rp?uts=' + url);
+            debug('restorePassword() response.data:', response.data);
+            return {
+                status: response.status,
+                data: response.data,
+            }
+        } catch (error) {
+            //in case of 401 (premium) the response.data is:
+            /*{
+                success: false,
+                error: 'could not update layer with supplierName key as asset is PREMIUM'
+            }*/
+            debug('error.response', error.response);
+            return {
+                status: error.response.status,
+                data: error.response.headers.err_msg,
+            }
+        }
+    }
+
     public static async deleteAccount(username: string, password: string) {
         debug(`deleteAccount(), username: ${username}, password: ${password}`)
         try {
@@ -124,6 +147,28 @@ export class FlowsApi {
                     email
                 });
             debug('forgotPassword() response.status: ' + response.status);
+            return {
+                status: response.status,
+                data: response.data,
+            };
+        } catch (error) {
+            return {
+                status: error.response.status,
+                data: error.response.data.error,
+            }
+        }
+    }
+
+    static async setNewPassword(enc: string, password: string, retypedPassword: string) {
+        try {
+            const response = await axios.post(
+                urlPrefix + 'setNewPassword',
+                {
+                    enc,
+                    password,
+                    retypedPassword
+                });
+            debug('setNewPassword() response.status: ' + response.status);
             return {
                 status: response.status,
                 data: response.data,
