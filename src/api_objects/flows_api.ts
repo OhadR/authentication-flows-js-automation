@@ -111,7 +111,7 @@ export class FlowsApi {
                 : undefined;
 
         } catch (error) {
-            console.error(error);
+            //console.error(error);
             return undefined;
         }
     }
@@ -126,6 +126,24 @@ export class FlowsApi {
                 });
 
             debug('login() response.data:', response.data);
+            return {
+                status: response.status,
+                data: response.data,
+            };
+        } catch (error) {
+            //debug('error.response', error.response);
+            return {
+                status: error.response.status,
+                data: error.response.data.error,
+            }
+        }
+    }
+
+    public static async logout(username: string) {
+        try {
+            const response = await axios.get(urlPrefix + 'logout');
+
+            debug('logout() response.data:', response.data);
             return {
                 status: response.status,
                 data: response.data,

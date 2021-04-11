@@ -14,6 +14,7 @@ Feature: Authentication Flows API
             | bmc.incubator@gmail.com | pass        | pass         | 200    | null                                       |
 
 
+    # test account activation, and test that link is valid only once
     Scenario Outline: Activate Account
         When create account with username <username> password <password> retyped password <repassword> is called
         Then return status 200 and return message OK
@@ -69,9 +70,40 @@ Feature: Authentication Flows API
             | bmc.incubator@gmail.com  | pass        |
 
 
-# test few login failured, then success, and make sure counter of attempts resets.
-# test forgot password for account that has not been activated.
-
+    # test few login failured, then success, and make sure counter of attempts resets.
+    @ohads
+    Scenario Outline: Successful Login Reset Number Attempts Left
+        When create account with username <username> password <password> retyped password <password> is called
+        Then return status 200 and return message OK
+        When get link for username <username> is called
+        When activate account with link is called
+        Then return status 200 and return message OK
+#        bad login till account is locked:
+        When login with username <username> password bad-password is called
+        Then return status 401 and return message OK
+        When login with username <username> password bad-password is called
+        Then return status 401 and return message OK
+        When login with username <username> password bad-password is called
+        Then return status 401 and return message OK
+        When login with username <username> password bad-password is called
+        Then return status 401 and return message OK
+        When login with username <username> password <password> is called
+        Then return status 200 and return message OK
+        When login with username <username> password bad-password is called
+        Then return status 401 and return message OK
+        When login with username <username> password bad-password is called
+        Then return status 401 and return message OK
+        When login with username <username> password bad-password is called
+        Then return status 401 and return message OK
+        When login with username <username> password bad-password is called
+        Then return status 401 and return message OK
+        When login with username <username> password bad-password is called
+        Then return status 401 and return message OK
+        When login with username <username> password bad-password is called
+        Then return status 423 and return message OK
+        Examples:
+            | username                 | password    |
+            | bmc.incubator@gmail.com  | pass        |
 
     Scenario Outline: Forgot Password
         When create account with username <username> password <password> retyped password <password> is called
