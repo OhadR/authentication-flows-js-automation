@@ -11,7 +11,7 @@ Feature: Authentication Flows API
             | username                | password    | repassword   | status | returnMessage                              |
             | not_mail                | pass        | pass         | 500    | The e-mail you have entered is not valid   |
             | bmc.incubator@gmail.com | pass        | other_pass   | 500    | These passwords don't match                |
-            | bmc.incubator@gmail.com | pass        | pass         | 200    | null                                       |
+            | bmc.incubator@gmail.com | Passw0rd!   | Passw0rd!    | 200    | null                                       |
 
 
     # test account activation, and test that link is valid only once
@@ -34,7 +34,7 @@ Feature: Authentication Flows API
         Then return status 500 and return message link does not exist in DB
         Examples:
             | username                 | password    | repassword   |
-            | bmc.incubator@gmail.com  | pass        | pass         |
+            | bmc.incubator@gmail.com  | Passw0rd!   | Passw0rd!    |
 
 
 
@@ -67,11 +67,10 @@ Feature: Authentication Flows API
         Then return status 200 and return message OK
     Examples:
             | username                 | password    |
-            | bmc.incubator@gmail.com  | pass        |
+            | bmc.incubator@gmail.com  | Passw0rd!   |
 
 
     # test few login failured, then success, and make sure counter of attempts resets.
-    @ohads
     Scenario Outline: Successful Login Reset Number Attempts Left
         When create account with username <username> password <password> retyped password <password> is called
         Then return status 200 and return message OK
@@ -103,7 +102,7 @@ Feature: Authentication Flows API
         Then return status 423 and return message OK
         Examples:
             | username                 | password    |
-            | bmc.incubator@gmail.com  | pass        |
+            | bmc.incubator@gmail.com  | Passw0rd!   |
 
     Scenario Outline: Forgot Password
         When create account with username <username> password <password> retyped password <password> is called
@@ -129,7 +128,7 @@ Feature: Authentication Flows API
         Then return status 200 and return message OK
         Examples:
             | username                 | password    | newPassword |
-            | bmc.incubator@gmail.com  | pass        | newpass     |
+            | bmc.incubator@gmail.com  | Passw0rd!   | newpass     |
 
 
 
@@ -141,4 +140,7 @@ Feature: Authentication Flows API
         Then return status 500 and return message Account is locked or does not exist
         Examples:
             | username                 | password    |
-            | bmc.incubator@gmail.com  | pass        |
+            | bmc.incubator@gmail.com  | Passw0rd!   |
+
+
+#test wrong links
