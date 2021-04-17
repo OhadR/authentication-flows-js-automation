@@ -143,4 +143,12 @@ Feature: Authentication Flows API
             | bmc.incubator@gmail.com  | Passw0rd!   |
 
 
+    Scenario Outline: Password Policy
+        When create account with username <username> password <password> retyped password <password> is called
+        Then return status 500 and return message <returnMessage>
+        Examples:
+            | username                | password    | returnMessage                              |
+            | bmc.incubator@gmail.com | pass        | too short                                  |
+            | bmc.incubator@gmail.com | Passw0rd    | These passwords don't match                |
+
 #test wrong links
