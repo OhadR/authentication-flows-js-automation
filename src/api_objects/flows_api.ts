@@ -23,7 +23,7 @@ export class FlowsApi {
             debug('createAccount() response.status: ' + response.status);
             return {
                 status: response.status,
-                data: response.headers.err_msg,
+                data: 'OK',
             };
         } catch (error) {
             //debug('error.response', error.response);
@@ -128,13 +128,13 @@ export class FlowsApi {
             debug('login() response.data:', response.data);
             return {
                 status: response.status,
-                data: response.data,
+                data: 'OK',
             };
         } catch (error) {
             //debug('error.response', error.response);
             return {
                 status: error.response.status,
-                data: error.response.data.error,
+                data: error.response.headers.err_msg,
             }
         }
     }

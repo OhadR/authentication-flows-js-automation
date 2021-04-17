@@ -20,7 +20,7 @@ Feature: Authentication Flows API
         Then return status 200 and return message OK
 #       make sure login fails before activation:
         When login with username <username> password <password> is called
-        Then return status 401 and return message login failed
+        Then return status 401 and return message authentication failed
 
         When get link for username <username> is called
         When activate account with link is called
