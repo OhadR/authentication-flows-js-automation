@@ -40,7 +40,7 @@ export class DatalakeSteps {
         @then(/return status (\d+) and return message (.*)/)
         public async getLayersIsCalled(status: number, returnMessage: string) {
                 expect(this.retVal.status).to.equal(status);
-//TODO                expect(this.retVal.data).to.include(returnMessage);
+                expect(this.retVal.data).to.include(returnMessage);
         }
 
 

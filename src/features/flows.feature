@@ -10,8 +10,8 @@ Feature: Authentication Flows API
         Examples:
             | username                | password    | repassword   | status | returnMessage                              |
             | not_mail                | pass        | pass         | 500    | The e-mail you have entered is not valid   |
-            | bmc.incubator@gmail.com | pass        | other_pass   | 500    | These passwords don't match                |
-            | bmc.incubator@gmail.com | Passw0rd!   | Passw0rd!    | 200    | null                                       |
+            | bmc.incubator@gmail.com | Passw0rd!   | other_pass   | 500    | These passwords don't match                |
+            | bmc.incubator@gmail.com | Passw0rd!   | Passw0rd!    | 200    | OK                                       |
 
 
     # test account activation, and test that link is valid only once
