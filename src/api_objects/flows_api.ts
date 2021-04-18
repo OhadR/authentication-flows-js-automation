@@ -56,7 +56,7 @@ export class FlowsApi {
             debug('activateAccount() response.data:', response.data);
             return {
                 status: response.status,
-                data: response.data,
+                data: 'OK',
             }
         } catch (error) {
             //in case of 401 (premium) the response.data is:
@@ -167,7 +167,7 @@ export class FlowsApi {
             debug('forgotPassword() response.status: ' + response.status);
             return {
                 status: response.status,
-                data: response.data,
+                data: 'OK',
             };
         } catch (error) {
             return {
