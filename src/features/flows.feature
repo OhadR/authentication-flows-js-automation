@@ -147,8 +147,17 @@ Feature: Authentication Flows API
         When create account with username <username> password <password> retyped password <password> is called
         Then return status 500 and return message <returnMessage>
         Examples:
-            | username                | password    | returnMessage                              |
-            | bmc.incubator@gmail.com | pass        | too short                                  |
-            | bmc.incubator@gmail.com | Passw0rd    | These passwords don't match                |
+            | username                | password    | returnMessage                                                          |
+            | bmc.incubator@gmail.com | pass        | Password is too short                                                  |
+            | bmc.incubator@gmail.com | password123 | Password is too long                                                   |
+            | bmc.incubator@gmail.com | password    | Your password is not acceptable by the organizational password policy. |
+            | bmc.incubator@gmail.com | password1   | Password needs to contains at least 1 special symbols                  |
+            | bmc.incubator@gmail.com | password1!  | Password needs to contains at least 1 upper-case characters            |
+            | bmc.incubator@gmail.com | Password1   | Password needs to contains at least 1 special symbols                  |
+            | bmc.incubator@gmail.com | password!   | Password needs to contains at least 1 numeric characters               |
+            | bmc.incubator@gmail.com | PASSWORD!   | Password needs to contains at least 1 numeric characters               |
+            | bmc.incubator@gmail.com | PASSWORD1!  | Password needs to contains at least 1 lower-case characters            |
+            | bmc.incubator@gmail.com | password1!  | Password needs to contains at least 1 upper-case characters            |
+
 
 #test wrong links
