@@ -79,14 +79,9 @@ export class FlowsApi {
             debug('restorePassword() response.data:', response.data);
             return {
                 status: response.status,
-                data: response.data,
+                data: 'OK',
             }
         } catch (error) {
-            //in case of 401 (premium) the response.data is:
-            /*{
-                success: false,
-                error: 'could not update layer with supplierName key as asset is PREMIUM'
-            }*/
             debug('error.response', error.response);
             return {
                 status: error.response.status,
@@ -172,7 +167,7 @@ export class FlowsApi {
         } catch (error) {
             return {
                 status: error.response.status,
-                data: error.response.data.error,
+                data: error.response.headers.err_msg,
             }
         }
     }
@@ -189,12 +184,12 @@ export class FlowsApi {
             debug('setNewPassword() response.status: ' + response.status);
             return {
                 status: response.status,
-                data: response.data,
+                data: 'OK',
             };
         } catch (error) {
             return {
                 status: error.response.status,
-                data: error.response.data.error,
+                data: error.response.headers.err_msg,
             }
         }
     }
