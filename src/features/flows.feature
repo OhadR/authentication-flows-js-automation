@@ -31,7 +31,7 @@ Feature: Authentication Flows API
 
 #        make sure the link is valid only once:
         When activate account with link is called
-        Then return status 500 and return message link does not exist in DB
+        Then return status 500 and return message Could not find any user with this link.
         Examples:
             | username                 | password    | repassword   |
             | bmc.incubator@gmail.com  | Passw0rd!   | Passw0rd!    |
@@ -46,21 +46,21 @@ Feature: Authentication Flows API
         Then return status 200 and return message OK
 #        bad login till account is locked:
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         # on the 5th attempt the account is getting locked:
         When login with username <username> password bad-password is called
         Then return status 423 and return message OK
         # next time, we get 401 again:
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         # test unlock URL (similar to activation url)
         When get link for username <username> is called
         When activate account with link is called
@@ -79,25 +79,25 @@ Feature: Authentication Flows API
         Then return status 200 and return message OK
 #        bad login till account is locked:
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password <password> is called
         Then return status 200 and return message OK
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 401 and return message OK
+        Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
         Then return status 423 and return message OK
         Examples:
