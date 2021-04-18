@@ -57,7 +57,7 @@ Feature: Authentication Flows API
         Then return status 401 and return message authentication failed
         # on the 5th attempt the account is getting locked:
         When login with username <username> password bad-password is called
-        Then return status 423 and return message OK
+        Then return status 423 and return message Account has been locked out for user: bmc.incubator@gmail.com due to exceeding number of attempts to login.
         # next time, we get 401 again:
         When login with username <username> password bad-password is called
         Then return status 401 and return message authentication failed
@@ -99,7 +99,7 @@ Feature: Authentication Flows API
         When login with username <username> password bad-password is called
         Then return status 401 and return message authentication failed
         When login with username <username> password bad-password is called
-        Then return status 423 and return message OK
+        Then return status 423 and return message Account has been locked out for user: bmc.incubator@gmail.com due to exceeding number of attempts to login.
         Examples:
             | username                 | password    |
             | bmc.incubator@gmail.com  | Passw0rd!   |
@@ -121,7 +121,7 @@ Feature: Authentication Flows API
         Then return status 200 and return message OK
         # validate link is valid only once:
         When reset password with link is called
-        Then return status 500 and return message link does not exist in DB
+        Then return status 500 and return message Could not find any user with this link.
 
         #       make sure login ok after change password:
         When login with username <username> password <newPassword> is called
@@ -135,7 +135,7 @@ Feature: Authentication Flows API
     Scenario Outline: Forgot Password to non-activated account
         When create account with username <username> password <password> retyped password <password> is called
         Then return status 200 and return message OK
-        #        forgot-password:
+        #  forgot-password:
         When forgot password for username <username> is called
         Then return status 500 and return message Account is locked or does not exist
         Examples:
