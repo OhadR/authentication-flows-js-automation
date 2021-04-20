@@ -13,7 +13,7 @@ Feature: Authentication Flows API
             | bmc.incubator@gmail.com | Passw0rd!   | other_pass   | 500    | These passwords don't match                |
             | bmc.incubator@gmail.com | Passw0rd!   | Passw0rd!    | 200    | OK                                       |
 
-
+@ohads
     # test account activation, and test that link is valid only once
     Scenario Outline: Activate Account
         When create account with username <username> password <password> retyped password <repassword> is called
@@ -104,44 +104,6 @@ Feature: Authentication Flows API
             | username                 | password    |
             | bmc.incubator@gmail.com  | Passw0rd!   |
 
-    Scenario Outline: Forgot Password
-        When create account with username <username> password <password> retyped password <password> is called
-        Then return status 200 and return message OK
-        When get link for username <username> is called
-        When activate account with link is called
-        Then return status 200 and return message OK
-        #        forgot-password:
-        When forgot password for username <username> is called
-        Then return status 200 and return message OK
-        When get link for username <username> is called
-        When reset password with link is called
-        Then return status 200 and return message OK
-        # user is directed to set new password page, enters his new password and now we test the server
-        When set new password with password <newPassword> retyped password <newPassword> is called
-        Then return status 200 and return message OK
-        # validate link is valid only once:
-        When reset password with link is called
-        Then return status 500 and return message Could not find any user with this link.
-
-        #       make sure login ok after change password:
-        When login with username <username> password <newPassword> is called
-        Then return status 200 and return message OK
-        Examples:
-            | username                 | password    | newPassword |
-            | bmc.incubator@gmail.com  | Passw0rd!   | newpass     |
-
-
-
-    Scenario Outline: Forgot Password to non-activated account
-        When create account with username <username> password <password> retyped password <password> is called
-        Then return status 200 and return message OK
-        #  forgot-password:
-        When forgot password for username <username> is called
-        Then return status 500 and return message Account is locked or does not exist
-        Examples:
-            | username                 | password    |
-            | bmc.incubator@gmail.com  | Passw0rd!   |
-
 
     Scenario Outline: Password Policy
         When create account with username <username> password <password> retyped password <password> is called
@@ -160,4 +122,8 @@ Feature: Authentication Flows API
             | bmc.incubator@gmail.com | password1!  | Password needs to contains at least 1 upper-case characters            |
 
 
-#test wrong links
+    #test wrong links
+    Scenario: Use Wrong Link
+        When set link for test to dummyCode
+        When activate account with link is called
+        Then return status 500 and return message Could not find any user with this link.

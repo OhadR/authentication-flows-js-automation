@@ -52,6 +52,13 @@ export class DatalakeSteps {
                 debug(this.activationUrl);
         }
 
+        @when(/set link for test to (.*)/)
+        public async setLink(link: string) {
+                debug('setLink()');
+                this.activationUrl = link;
+                debug(this.activationUrl);
+        }
+
         @when(/activate account with link is called/)
         public async activateAccountForUsername() {
                 debug('activateAccountForUsername()');
