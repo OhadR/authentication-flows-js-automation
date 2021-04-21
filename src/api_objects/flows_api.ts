@@ -52,7 +52,7 @@ export class FlowsApi {
     public static async activateAccount(url: string) {
         try {
             const response = await axios.get(
-                urlPrefix + 'aa?uts=' + url);
+                urlPrefix + 'aa/' + url);
             debug('activateAccount() response.data:', response.data);
             return {
                 status: response.status,
@@ -75,7 +75,7 @@ export class FlowsApi {
     public static async restorePassword(url: string) {
         try {
             const response = await axios.get(
-                urlPrefix + 'rp?uts=' + url);
+                urlPrefix + 'rp/' + url);
             debug('restorePassword() response.data:', response.data);
             return {
                 status: response.status,
