@@ -59,11 +59,6 @@ export class FlowsApi {
                 data: 'OK',
             }
         } catch (error) {
-            //in case of 401 (premium) the response.data is:
-            /*{
-                success: false,
-                error: 'could not update layer with supplierName key as asset is PREMIUM'
-            }*/
             debug('error.response', error.response);
             return {
                 status: error.response.status,
