@@ -1,4 +1,4 @@
-import { binding, given, then, when} from 'cucumber-tsflow';
+import { binding, when} from 'cucumber-tsflow';
 var debug = require('debug')('timeout-steps');
 
 @binding()
@@ -9,12 +9,10 @@ export class TimeoutSteps {
     }
 
     //10 minutes is the timeout. undefined is for tags.
-    @when('wait {int} minutes', undefined, 10 * 60 * 1000)
-    public async waitNMinutes(numMinutes: number) {
-        debug(`waiting ${numMinutes} minutes... `, new Date().toUTCString());
-
-        await TimeoutSteps.sleep(numMinutes * 60);
-        console.log("one minute has elapsed");
+    @when('wait {int} seconds', undefined, 10 * 60 * 1000)
+    public async waitNSeconds(numSeconds: number) {
+        debug(`waiting ${numSeconds} seconds... `, new Date().toUTCString());
+        await TimeoutSteps.sleep(numSeconds);
     }
 
 }
