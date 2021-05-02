@@ -1,4 +1,6 @@
-# automation-cucumber.js
+# Automated Tests for authenticaion-flows-js
+
+This project is automated tests using cucumber-ts, for [authenticaion-flows-js](https://github.com/OhadR/authentication-flows-js).
 
 ## Install
 
@@ -7,7 +9,7 @@
 
 ## Environment Variables
 
-to allow debug [(what is this `follow-redirects`?)](#follow-redirects):
+to allow [debug](https://www.npmjs.com/package/debug) logs [(what is this `follow-redirects`?)](#follow-redirects):
 
     set DEBUG=*,-follow-redirects
     
@@ -15,4 +17,3 @@ to allow debug [(what is this `follow-redirects`?)](#follow-redirects):
 
     npm test
 
-----
