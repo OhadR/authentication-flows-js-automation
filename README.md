@@ -1,3 +1,6 @@
+<img src="cucumber-logo.png" height="50px" />
+
+
 # Automated Tests for authenticaion-flows-js
 
 This project is automated tests using cucumber-ts, for [authenticaion-flows-js](https://github.com/OhadR/authentication-flows-js).
