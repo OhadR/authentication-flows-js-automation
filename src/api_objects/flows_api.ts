@@ -1,7 +1,8 @@
 const axios = require('axios');
 const debug = require('debug')('flows-api');
 
-const urlPrefix = "http://localhost:3000/";
+// const urlPrefix = "http://localhost:3000/";
+const urlPrefix = "https://auth-flows-js-demo.appspot.com/";
 
 export class FlowsApi {
 
