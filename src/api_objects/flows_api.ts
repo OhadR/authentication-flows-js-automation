@@ -78,7 +78,7 @@ export class FlowsApi {
                 data: 'OK',
             }
         } catch (error) {
-            debug('error.response', error.response);
+            debug('error.response', error.response.status, error.response.headers.err_msg);
             return {
                 status: error.response.status,
                 data: error.response.headers.err_msg,

@@ -30,7 +30,7 @@ Feature: Authentication Flows API
         Then return status 200 and return message OK
 
 #        make sure the link is valid only once:
-        When wait 5 seconds
+        When wait 3 seconds
         When activate account with link is called
         Then return status 500 and return message Could not find any user with this link.
         Examples:

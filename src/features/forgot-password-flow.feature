@@ -18,7 +18,7 @@ Feature: Authentication Flows API
         When set new password with password <newPassword> retyped password <newPassword> is called
         Then return status 200 and return message OK
         # validate link is valid only once:
-        When wait 5 seconds
+        When wait 3 seconds
         When reset password with link is called
         Then return status 500 and return message Could not find any user with this link.
 
