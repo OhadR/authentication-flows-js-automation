@@ -5,7 +5,7 @@ const expect = require('chai').expect;
 import { ReturnStatus } from "../types/asset.type";
 
 @binding()
-export class DatalakeSteps {
+export class FlowsSteps {
         constructor() {}
 
         private retVal: ReturnStatus;
