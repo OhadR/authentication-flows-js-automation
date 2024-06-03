@@ -1,4 +1,5 @@
-<img src="cucumber-logo.png" height="50px" />
+<img src="images/auth-flows.ico" height="50px" />
+<img src="images/cucumber-logo.png" height="50px" />
 
 
 # Automated Tests for authenticaion-flows-js
