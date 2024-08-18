@@ -1,5 +1,8 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+env:
+  DEBUG: *,-follow-redirects
+  CUCUMBER_PUBLISH_TOKEN: 5c5531a7-4d41-4e9b-9f11-ce809d680364
 
 name: Node.js CI
 
@@ -10,7 +13,7 @@ on:
     branches: [ "master" ]
   schedule:
     - cron: '0 * * * *'
-      
+
 jobs:
   build:
 
